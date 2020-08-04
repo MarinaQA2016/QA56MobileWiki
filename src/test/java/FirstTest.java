@@ -26,11 +26,10 @@ public class FirstTest {
         capabilities.setCapability("appActivity",".main.MainActivity");
         capabilities.setCapability("app","E:/Marina/Tel Ran/QA Haifa Auto Practice/QA56MobileWiki/apk/wikipedia.apk");
         capabilities.setCapability("automationName","Uiautomator1");
-        driver = new AndroidDriver(new URL("http://127.0.01:4723/wd/hub"),capabilities);
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
 
         WebElement element = driver.findElement(By.xpath("//*[contains(@text,'Search Wikipedia')]"));
         System.out.println("text of element:" + element.getText());
-
 
 
     }
