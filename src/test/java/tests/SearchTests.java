@@ -43,8 +43,10 @@ public class SearchTests extends TestBase {
     }
     @Test
     public void searchArticleAndOpen(){
-        searchPage.enterSearchText("Selenium");
-        searchPage.openArticle("Selenium (software)");
+        String search = "Selenium ";
+        String article = "Selenium (software)";
+        searchPage.enterSearchText(search);
+        searchPage.openArticle(article);
         articleSeleniumSoftware.waitUntilPageIsLoaded();
         Assert.assertTrue(articleSeleniumSoftware
                 .isOpenedCorrectly());

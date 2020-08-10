@@ -17,24 +17,30 @@ public class SearchPageHelper extends PageBase {
     @FindBy(id = "org.wikipedia:id/page_list_item_title")
     List<WebElement> articlesNamesList;
 
+    @FindBy(xpath = "//*[@class='android.widget.FrameLayout'][@content-desc = 'My lists']")
+    WebElement openMyListsButton;
+
     public SearchPageHelper(WebDriver driver) {
         super(driver);
     }
 
-    public void waitUntilPageIsLoaded() {
+    public SearchPageHelper waitUntilPageIsLoaded() {
+
         waitUntilElementIsClickable(searchField,15);
+        return this;
     }
 
     public String getSearchFieldText(){
         return searchField.getText();
     }
 
-    public void enterSearchText(String text) {
+    public SearchPageHelper enterSearchText(String text) {
         searchField.click();
         waitUntilElementIsClickable(searchInput,10);
         searchInput.sendKeys(text);
         waitUntilAllElementsAreVisible(articlesNamesList,15);
         System.out.println("Articles quantity: "+ articlesNamesList.size());
+        return this;
     }
 
     public boolean existArticleInSearchResult(String article) {
@@ -45,8 +51,13 @@ public class SearchPageHelper extends PageBase {
         return flag;
     }
 
-    public void openArticle(String article) {
+    public SearchPageHelper openArticle(String article) {
         driver.findElement(By.xpath(xPathArticleName(article))).click();
+        return this;
+    }
+    public SearchPageHelper openMyListsPage() {
+        openMyListsButton.click();
+        return this;
     }
 
     private String xPathArticleName(String article){
