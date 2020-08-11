@@ -1,5 +1,8 @@
 package pages;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,6 +38,8 @@ public class SearchPageHelper extends PageBase {
     }
 
     public SearchPageHelper enterSearchText(String text) {
+        System.out.println("x: " + searchField.getLocation().x);
+        System.out.println("y: " + searchField.getLocation().y);
         searchField.click();
         waitUntilElementIsClickable(searchInput,10);
         searchInput.sendKeys(text);
@@ -62,5 +67,32 @@ public class SearchPageHelper extends PageBase {
 
     private String xPathArticleName(String article){
         return "//*[@text='" + article +"']";
+    }
+
+    public void openArticleMenu(String article) {
+        AppiumDriver appDriver = (AppiumDriver)(driver);
+        TouchAction action = new TouchAction(appDriver);
+        WebElement articleName = driver
+                .findElement(By.xpath(xPathArticleName(article)));
+        int x = articleName.getLocation().x+3;
+        int y = articleName.getLocation().y+3;
+        action.longPress(PointOption.point(x,y))
+                .waitAction()
+                .release()
+                .perform();
+
+    }
+
+    public void closeArticleMenu() {
+        AppiumDriver appDriver = (AppiumDriver)(driver);
+        TouchAction action = new TouchAction(appDriver);
+        WebElement menuOpen = driver
+                .findElement(By.xpath("//*[@text='Open']"));
+        int x = (int)(menuOpen.getLocation().x *0.5);
+        int y = menuOpen.getLocation().y;
+        action.press(PointOption.point(x,y))
+                .waitAction()
+                .release()
+                .perform();
     }
 }
