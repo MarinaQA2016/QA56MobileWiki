@@ -1,6 +1,6 @@
 package tests;
 
-import junit.framework.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,5 +39,25 @@ public class CurrentArticleTests extends TestBase {
                 .openList("My List");
         myCurrentList.waitUntilPageIsLoaded();
         Assert.assertTrue(myCurrentList.existsArticle(article));
+    }
+    @Test
+    public void addToNewReadingListAndDelete()  {
+        String search = "Selenium ";
+        String article = "Selenium (software)";
+        searchPage.enterSearchText(search)
+                .openArticle(article);
+        articleSearchSoftware.waitUntilPageIsLoaded()
+                .addToNewReadingList("My List")
+                .closeArticle();
+        searchPage.waitUntilPageIsLoaded()
+                .openMyListsPage();
+        myListsPage.waitUntilPageIsLoaded()
+                .openList("My List");
+        myCurrentList.waitUntilPageIsLoaded()
+                .deleteArticle(article)
+                .closeReadingList();
+        myListsPage.waitUntilPageIsLoaded()
+                .openList("My List");
+        Assert.assertFalse(myCurrentList.existsArticle(article));
     }
 }

@@ -2,7 +2,7 @@ package tests;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import junit.framework.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CurrentArticlePageHelper;
 import pages.SearchPageHelper;
+
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,7 +36,7 @@ public class SearchTests extends TestBase {
                 .getSearchFieldText());
     }
 
-    @Test
+    @Test()
     public void searchArticle(){
         searchPage.enterSearchText("Selenium");
         Assert.assertTrue(searchPage
