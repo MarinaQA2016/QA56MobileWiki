@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CurrentArticlePageHelper;
 import pages.SearchPageHelper;
+import util.DataProviders;
 
 
 import java.net.MalformedURLException;
@@ -36,21 +37,47 @@ public class SearchTests extends TestBase {
                 .getSearchFieldText());
     }
 
-    @Test()
+    @Test
     public void searchArticle(){
         searchPage.enterSearchText("Selenium");
         Assert.assertTrue(searchPage
                 .existArticleInSearchResult("Selenium (software)"));
     }
-    @Test
-    public void searchArticleAndOpen(){
-        String search = "Selenium ";
-        String article = "Selenium (software)";
+    @Test(dataProviderClass = DataProviders
+            .class,dataProvider = "searchArticlesFromFile")
+    public void searchArticleAndOpen(String search, String article){
+        //String search = "Selenium";
+        //String article = "Selenium (software)";
         searchPage.enterSearchText(search);
         searchPage.openArticle(article);
         articleSeleniumSoftware.waitUntilPageIsLoaded();
         Assert.assertTrue(articleSeleniumSoftware
                 .isOpenedCorrectly());
+
+    }
+    @Test
+    public void searchArticleOpenAndRotate(){
+        String search = "Selenium ";
+        String article = "Selenium (software)";
+        searchPage.enterSearchText(search);
+        searchPage.openArticle(article);
+        articleSeleniumSoftware.waitUntilPageIsLoaded();
+        articleSeleniumSoftware.rotateScreenLandscape();
+        articleSeleniumSoftware.waitUntilPageIsLoaded();
+        searchPage.rotateScreenPORTRAIT();
+        articleSeleniumSoftware.waitUntilPageIsLoaded();
+        Assert.assertTrue(articleSeleniumSoftware.isOpenedCorrectly());
+    }
+    @Test
+    public void searchArticleOpenAndBackground(){
+        String search = "Selenium ";
+        String article = "Selenium (software)";
+        searchPage.enterSearchText(search);
+        searchPage.openArticle(article);
+        articleSeleniumSoftware.waitUntilPageIsLoaded();
+        articleSeleniumSoftware.runBackGround(2);
+        articleSeleniumSoftware.waitUntilPageIsLoaded();
+        Assert.assertTrue(articleSeleniumSoftware.isOpenedCorrectly());
 
     }
     @Test
