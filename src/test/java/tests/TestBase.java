@@ -14,7 +14,7 @@ import java.net.URL;
 public class TestBase {
     public AppiumDriver driver;
     SearchPageHelper searchPage;
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName","Android");
@@ -31,7 +31,7 @@ public class TestBase {
         searchPage.rotateScreenPORTRAIT();
 
     }
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(){
         driver.quit();
     }

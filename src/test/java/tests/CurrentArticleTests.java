@@ -15,7 +15,7 @@ public class CurrentArticleTests extends TestBase {
     MyListsPageHelper myListsPage;
     MyCurrentListHelper myCurrentList;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void testsInit(){
         searchPage = PageFactory.initElements(driver, SearchPageHelper.class);
         articleSearchSoftware = new CurrentArticlePageHelper(driver, "Selenium (software)");
@@ -24,7 +24,7 @@ public class CurrentArticleTests extends TestBase {
         searchPage.waitUntilPageIsLoaded();
     }
 
-    @Test
+    @Test(groups ={"smoke","regression"})
     public void addToNewReadingList()  {
         String search = "Selenium ";
         String article = "Selenium (software)";
@@ -40,7 +40,7 @@ public class CurrentArticleTests extends TestBase {
         myCurrentList.waitUntilPageIsLoaded();
         Assert.assertTrue(myCurrentList.existsArticle(article));
     }
-    @Test
+    @Test(groups ={"regression"})
     public void addToNewReadingListAndDelete()  {
         String search = "Selenium ";
         String article = "Selenium (software)";
