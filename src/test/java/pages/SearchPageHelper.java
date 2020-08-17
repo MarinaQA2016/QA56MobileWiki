@@ -66,7 +66,7 @@ public class SearchPageHelper extends PageBase {
     }
 
     private String xPathArticleName(String article){
-        return "//*[@text='" + article +"']";
+        return "//*[@resource-id='org.wikipedia:id/page_list_item_title'][@text='" + article +"']";
     }
 
     public void openArticleMenu(String article) {
